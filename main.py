@@ -23,4 +23,14 @@ async def on_message(message):
   if message.content.startswith('/ping'):
     await message.channel.send('Pong!')
 
+@client.event
+async def on_message(message):
+  if message.author == client.user:
+    return
+
+  if message.content.startswith("/hru"):
+    await message.channel.send('I am good thank you!')
+
+
+
 client.run(os.environ['TOKEN'])
