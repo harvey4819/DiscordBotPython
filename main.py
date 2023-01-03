@@ -1,19 +1,20 @@
+#Packages
 import discord
 import os
+from discord.ext import commands
 
-client = discord.Client(intents=discord.Intents.all())
+#Intents
+client = commands.Bot(command_prefix = "/", intents = discord.Intents.all())
 
+#Bot ready sequence along with changing bots activity status
 @client.event
 async def on_ready():
-  print('We have lift off {0.user} yay!'.format(client))
-  await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="bleep bloop bop"))
+  print('{0.user} We have lift off!'.format(client))
+  await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='bleep bloop bop'))
 
-@client.event
-async def on_message(message):
-  if message.author == client.user:
-    return
+#Commands
+@client.command()
+async def hi(ctx):
+  await ctx.send('Hello, ' + ctx.message.author.mention)
 
-  if message.content.startswith('/hello'):
-    await message.channel.send('Hello!')
-
-client.run(os.environ['TOKEN'])
+client.run(os.environ['TOKEN1'])
